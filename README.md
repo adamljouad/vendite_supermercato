@@ -1,46 +1,107 @@
 # Superstore Sales Analysis
 
-Analisi esplorativa delle vendite di un retailer USA (dataset Superstore), con focus su KPI di redditività per categoria di prodotto — vendite, profitto, margine e impatto degli sconti.
+Analisi esplorativa di un dataset retail (Superstore) con focus sulla redditività delle categorie di prodotto.  
+L'obiettivo è individuare quali categorie generano margini bassi o perdite e analizzare i fattori che possono influenzare la performance, come sconti e differenze geografiche.
+
+---
 
 ## Obiettivo del progetto
 
-Individuare quali categorie e sotto-categorie di prodotto generano margini bassi o perdite, e capire in che misura gli sconti applicati ne sono la causa. L'analisi replica il tipo di lavoro tipico di un ruolo di controllo di gestione: dall'esplorazione dei dati grezzi fino a un insight azionabile per il business.
+L'analisi cerca di rispondere a queste domande:
+
+- Quali categorie e sotto-categorie generano più profitto?
+- Dove si concentrano le principali perdite?
+- Gli sconti hanno un impatto sulla redditività?
+- Esistono combinazioni specifiche tra categoria e regione con performance negative?
+
+---
 
 ## Dataset
 
-[Superstore Sales Dataset](https://www.kaggle.com/datasets/vivek468/superstore-dataset-final) — 9.994 ordini, 21 colonne (vendite, profitto, sconto, categoria, regione, date di ordine/spedizione, ecc.), nessun valore mancante.
+**Superstore Sales Dataset**
+
+- 9.994 ordini
+- 21 colonne
+- Informazioni su:
+  - vendite
+  - profitto
+  - sconti
+  - categorie e sotto-categorie
+  - regioni
+  - date degli ordini e spedizioni
+
+Il dataset non presenta valori mancanti.
+
+---
 
 ## Strumenti utilizzati
 
-- **Python (pandas)** — pulizia dati, feature engineering (conversione date, calcolo margine)
-- **SQL (SQLite)** — query aggregate per il calcolo dei KPI
-- Jupyter Notebook (VS Code)
+- **Python (pandas)** → pulizia dati, trasformazioni e analisi esplorativa
+- **SQL (SQLite)** → query aggregate per il calcolo dei KPI
+- **Jupyter Notebook (VS Code)** → sviluppo dell'analisi
+- **Tableau** → creazione della dashboard finale
 
-## Struttura del progetto
-├── data/
-│   ├── superstore_raw.csv     # dataset originale
-│   └── superstore.db          # database SQLite generato dai
-                                 dati puliti
-├── analysis.ipynb             # notebook con l'intera analisi
-└── README.md
-## Come eseguirlo
+---
 
-```bash
-python3 -m venv venv
-source venv/bin/activate
-pip install pandas jupyter
-```
-Apri `analysis.ipynb` in VS Code (o Jupyter) e esegui le celle in ordine.
+## Analisi svolta
+
+Il progetto è stato sviluppato attraverso:
+
+1. Pulizia e preparazione dei dati
+2. Analisi delle vendite e del profitto
+3. Calcolo del margine di profitto
+4. Analisi per categoria e sotto-categoria
+5. Studio dell'impatto degli sconti
+6. Analisi geografica per regione
+7. Creazione di una dashboard interattiva in Tableau
+
+---
 
 ## Principali insight
 
-- Il margine di profitto medio complessivo è **~12%**, ma con alta variabilità (deviazione standard 0.47) — alcuni ordini generano perdite fino al -275% del valore venduto.
-- A livello di categoria, **Furniture** vende quasi quanto Office Supplies e Technology (~740k€), ma genera un margine drasticamente inferiore (~2.5% contro ~17%).
-- Scomponendo per sotto-categoria, il problema è isolato in **Tables** (perdita netta di ~17.700€) e **Bookcases** (perdita netta di ~3.500€), entrambe con sconto medio più alto (26% e 21%) rispetto a Chairs e Furnishings, che restano profittevoli.
-- Lo sconto medio da solo non spiega interamente il gap di margine tra categorie — segnale che serve un'analisi più granulare (es. distribuzione dei singoli ordini) per capire l'impatto reale degli sconti estremi.
+- Il margine medio complessivo è circa **12%**, ma presenta una forte variabilità tra gli ordini.
+- La categoria **Furniture** genera vendite simili a **Technology** e **Office Supplies**, ma con una redditività molto più bassa (**~2,5% di margine**).
+- Le principali perdite di Furniture sono concentrate nelle sotto-categorie:
+  - **Tables** → perdita netta di circa **17.700€**
+  - **Bookcases** → perdita netta di circa **3.500€**
 
-## Prossimi sviluppi
+---
 
-- Analisi temporale (vendite/profitto mensili, stagionalità)
-- Confronto per regione geografica
-- Dashboard riassuntiva (Power BI)
+## Analisi finale: Furniture nella regione Central
+
+L'analisi per **Regione × Categoria** ha permesso di individuare il principale fattore associato alla perdita.
+
+La categoria **Furniture** risulta in perdita solamente nella regione **Central**, dove presenta uno sconto medio molto superiore rispetto alle altre regioni:
+
+| Regione | Sales Furniture | Profit Furniture | Sconto medio |
+|---|---:|---:|---:|
+| Central | 163.797€ | -2.871€ | 29,7% |
+| East | 208.291€ | 3.046€ | 15,4% |
+| South | 117.299€ | 6.771€ | 12,2% |
+| West | 252.613€ | 11.505€ | 13,1% |
+
+Il risultato suggerisce che gli sconti elevati applicati su Furniture nella regione Central siano un possibile driver della perdita di redditività.
+
+---
+
+## Dashboard Tableau
+
+La dashboard include:
+
+- KPI principali:
+  - Total Sales
+  - Total Profit
+  - Profit Margin
+- Analisi della redditività per categoria
+- Confronto regionale
+- Trend temporale di vendite e profitto
+
+---
+
+## Possibili sviluppi futuri
+
+- Budget vs Actual Analysis
+- Forecasting delle vendite
+- Analisi della redditività per cliente
+- Studio più approfondito dell'impatto degli sconti
+
